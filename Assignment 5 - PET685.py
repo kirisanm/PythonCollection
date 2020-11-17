@@ -18,6 +18,7 @@ MARR = 0.10 #After-TAX MARR (10%)
 tax_rate = 0.17 #Corporate tax rate (17%)
 
 
+
 #Problem 5A:
 
 #BTCF (Before-Tax Cashflow)
@@ -83,6 +84,7 @@ print("The after-tax standard deviation of the PW will be: ", sd_PW)
 
 
 
+
 #Problem 5B
 
 #Array length of the ATCFs
@@ -110,6 +112,8 @@ print("The after-tax mean of the IRR will be: ", mean_irr)
 #Calculate the after-tax SD of the IRR by using numpy.nanstd which sets non-numbers to 0.
 sd_irr = np.nanstd(irr_array)
 print("The after-tax standard deviation of the IRR will be: ", sd_irr)
+
+
 
 
 #Problem 5C

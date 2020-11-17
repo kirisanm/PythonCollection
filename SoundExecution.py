@@ -1,3 +1,4 @@
+#Used on Raspberry Pi
 import pygame
 import time
 
