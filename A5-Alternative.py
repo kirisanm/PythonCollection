@@ -64,15 +64,19 @@ print('The IRR of the base case is {:.2%}'.format(irr.x[0]))
 
 def fun_irr_rnd(row):
     pw_target = 0
-    squared_error = lambda marr: (fun_pw(inv, row['Revenue year 1'], row['Revenue year 2'], row['Revenue year 3'], row['Revenue year 4'], row['Revenue year 5'], row['Revenue year 6'], row['salvage value'], tax_rate, marr, life) - pw_target)**2
-    irr = opt.minimize(fun = squared_error, x0 = 0.5, method = 'L-BFGS-B', bounds = ((0, 1),))
+    squared_error_rnd = lambda marr: (fun_pw(inv, row['Revenue year 1'], row['Revenue year 2'], row['Revenue year 3'], row['Revenue year 4'], row['Revenue year 5'], row['Revenue year 6'], row['salvage value'], tax_rate, marr, life) - pw_target)**2
+    irr_rnd = opt.minimize(fun = squared_error_rnd, x0 = 0.5, method = 'L-BFGS-B', bounds = ((0, 1),))
     return irr_rnd.x[0]
     
 df_irr_rnd = df_trials.apply(fun_irr_rnd, axis = 1)     #DataFrame
 df_irr_rnd
 
 irr_mean = np.mean(df_irr_rnd)
-irr_sd = np.std(df_irr_rnd
+irr_sd = np.std(df_irr_rnd)
+print('The after-TAX mean of the IRR is {:.2%}'.format(irr_mean))
+print('The after-TAX standard deviation of the IRR is {:.2%}'.format(irr_sd))
+
+
 
 
 
