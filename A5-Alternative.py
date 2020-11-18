@@ -10,7 +10,7 @@ import scipy.optimize as opt
 
 def fun_pw(inv, revenue_1, revenue_2, revenue_3, revenue_4, revenue_5, revenue_6, salvage, tax_rate, marr, life):
     btcf = np.array([0, revenue_1, revenue_2, revenue_3, revenue_4, revenue_5, revenue_6 + salvage])   # (A) Before-TAX CashFlow
-    dep = np.array([0, (-inv-salvage)/3, (-inv-salvage)/3, (-inv-salvage)/3, 0, 0, 0])     # (B) straight line depreciation over 3 years
+    dep = np.array([0, (-inv)/3, (-inv)/3, (-inv)/3, 0, 0, 0])     # (B) straight line depreciation over 3 years
     nibt = btcf - dep        # (C) = (A) - (B) Taxable income / Net Income Before Tax
     tax_cf = -tax_rate * nibt    # (D) = -t * (C)
     atcf = btcf + tax_cf       # (E) = (A) + (D) After TAX CashFlow
