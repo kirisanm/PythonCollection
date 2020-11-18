@@ -15,7 +15,7 @@ def fun_pw(inv, revenue_1, revenue_2, revenue_3, revenue_4, revenue_5, revenue_6
     tax_cf = -tax_rate * nibt    # (D) = -t * (C)
     atcf = btcf + tax_cf       # (E) = (A) + (D) After TAX CashFlow
     years = np.arange(life + 1)                                                                                          
-    disc_factors = 1/((1+marr)**years)  #discount factors
+    disc_factor = 1/((1+marr)**years)  #discount factors
     pw_project = inv + sum(atcf * disc_factor)  #PW
     return pw_project
 
@@ -56,6 +56,25 @@ print('The after-TAX standard deviation of the PW is ${:,.2f}'.format(pw_sd))
 
 
 #Problem 5B
+pw_target = 0
+squared_error = lambda marr: (fun_pw(inv, revenue_1, revenue_2, revenue_3, revenue_4, revenue_5, revenue_6, salvage, tax_rate, marr, life) - pw_target)**2
+irr = opt.minimize(fun = squared_error, x0 = 0.5, method = 'L-BFGS-B', bounds = ((0, 1),))
+print('The IRR of the base case is {:.2%}'.format(irr.x[0]))
+#URL: https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html
+
+def fun_irr_rnd(row):
+    pw_target = 0
+    squared_error = lambda marr: (fun_pw(inv, row['Revenue year 1'], row['Revenue year 2'], row['Revenue year 3'], row['Revenue year 4'], row['Revenue year 5'], row['Revenue year 6'], row['salvage value'], tax_rate, marr, life) - pw_target)**2
+    irr = opt.minimize(fun = squared_error, x0 = 0.5, method = 'L-BFGS-B', bounds = ((0, 1),))
+    return irr_rnd.x[0]
+    
+df_irr_rnd = df_trials.apply(fun_irr_rnd, axis = 1)     #DataFrame
+df_irr_rnd
+
+irr_mean = np.mean(df_irr_rnd)
+irr_sd = np.std(df_irr_rnd
+
+
 
 
 
